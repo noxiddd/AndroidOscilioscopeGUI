@@ -1,4 +1,5 @@
-package com.example.jevaughnsdixon.androidgraphingui;
+package com.example.noxid.androidgraphingui;
+
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -7,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -23,6 +26,7 @@ import java.util.ArrayList;
  * Created by Jevaughn S. Dixon on 7/12/2016.
  */
 public class TwoChannels extends AppCompatActivity {
+    Button pause1,pause2,save1,save2;
     LineChart lineChart,lineChart2;
     ArrayList<Entry> entries=new ArrayList<>();
     boolean show_data_points=false;
@@ -30,6 +34,8 @@ public class TwoChannels extends AppCompatActivity {
     float MinYValue=-40;
     float x=0;
     float y=0;
+    int graph1count=0;
+    int graph2count=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -38,6 +44,41 @@ public class TwoChannels extends AppCompatActivity {
         setContentView(R.layout.activity_second);
         lineChart=(LineChart) findViewById(R.id.chart);
         lineChart2=(LineChart)findViewById(R.id.chart2);
+        pause1=(Button)findViewById(R.id.button_pause);
+        pause2=(Button)findViewById(R.id.button_pause2);
+        save1=(Button)findViewById(R.id.button_save);
+        save2=(Button)findViewById(R.id.button_save2);
+
+        save1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(graph1count==0)
+                {lineChart.saveToGallery("UpperGraph",60);}
+                else
+                {
+                    graph1count++;
+                    lineChart.saveToGallery("UpperGraph"+graph1count,60);
+                }
+                Toast.makeText(TwoChannels.this, "Upper Graph Saved To Gallery", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        save2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(graph2count==0)
+                {lineChart2.saveToGallery("LowerGraph",50);}
+                else
+                {
+                    graph2count++;
+                    lineChart2.saveToGallery("LowerGraph"+graph2count,50);
+                }
+                Toast.makeText(TwoChannels.this, "Lower Graph Saved To Gallery", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+
         LineDataSet dataSet=new LineDataSet(graphing(),"Dataaa");
 
         final LineData data=new LineData(dataSet);
