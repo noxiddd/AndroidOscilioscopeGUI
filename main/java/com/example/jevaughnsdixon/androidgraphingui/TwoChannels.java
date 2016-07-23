@@ -133,6 +133,12 @@ public class TwoChannels extends AppCompatActivity {
                 Intent separate_view = new Intent(TwoChannels.this,MainActivity.class);
                 startActivity(separate_view);
                 return true;
+                
+           case R.id.splash:
+                Toast.makeText(TwoChannels.this, "SPLASH", Toast.LENGTH_SHORT).show();
+                Intent Splash_view = new Intent(TwoChannels.this,Splash.class);
+                startActivity(Splash_view);
+                return true;
             default:
 
                 return super.onOptionsItemSelected(menuItem);
