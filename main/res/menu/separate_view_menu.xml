@@ -5,5 +5,7 @@
         android:title="SINGLE CHANNEL " />
     <item android:id="@+id/double_channel"
         android:title="DOUBLE CHANNEL" />
+    <item android:id="@+id/splash"
+        android:title="MAIN" />    
 
 </menu>
