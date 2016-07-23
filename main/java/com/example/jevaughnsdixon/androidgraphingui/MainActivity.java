@@ -1,4 +1,5 @@
-package com.example.jevaughnsdixon.androidgraphingui;
+package com.example.noxid.androidgraphingui;
+
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -23,7 +24,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    Button button;
+    Button toggle,pause,save;
     LineChart lineChart,lineChart2;
     ArrayList<Entry> entries=new ArrayList<>();
     boolean show_data_points=false;
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         ////////////////////////////////////////////////
 
         /////////////////////////////////////////////////////
-       final LineDataSet dataSet=new LineDataSet(graphing(),"Dataers");
+        final LineDataSet dataSet=new LineDataSet(graphing(),"Dataers");
         //dataSet.setCubicIntensity(1f);
 
         final LineData data=new LineData(dataSet);
@@ -72,8 +73,10 @@ public class MainActivity extends AppCompatActivity {
 
         lineChart.setData(data);
 
-        button=(Button)findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
+        dataSet.setDrawCircles(false);
+
+        toggle=(Button)findViewById(R.id.button_toggle);
+        toggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this,"DATA POINTS",Toast.LENGTH_LONG).show();
@@ -89,27 +92,43 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
-/*
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
-        new Thread(new Runnable() {
+        pause=(Button)findViewById(R.id.button_pause);
+        pause.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                for(int i=0;i<=100;i++)
-                {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
+            public void onClick(View view) {
 
-                        }
-                    });
-                }
             }
         });
-    }*/
+
+        save=(Button)findViewById(R.id.button_save);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lineChart.saveToGallery("Graph",50);
+                Toast.makeText(MainActivity.this, "Graph Saved To Gallery", Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+    /*
+        @Override
+        protected void onResume()
+        {
+            super.onResume();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    for(int i=0;i<=100;i++)
+                    {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                            }
+                        });
+                    }
+                }
+            });
+        }*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -132,8 +151,13 @@ public class MainActivity extends AppCompatActivity {
                 Intent separate_view = new Intent(MainActivity.this,TwoChannels.class);
                 startActivity(separate_view);
                 return true;
-             default:
-                 return super.onOptionsItemSelected(menuItem);
+            case R.id.splash:
+                Toast.makeText(MainActivity.this, "SPLASH", Toast.LENGTH_SHORT).show();
+                Intent Splash_view = new Intent(MainActivity.this,Splash.class);
+                startActivity(Splash_view);
+                return true;
+            default:
+                return super.onOptionsItemSelected(menuItem);
         }
     }
 
@@ -141,9 +165,12 @@ public class MainActivity extends AppCompatActivity {
     {
         while(x<50)
         {
+            //Splash splash;
+            //long now_time=System.nanoTime();
+           // x=now_time-splash.begin_time
             entries.add(new Entry(x,y));
             x=x+0.1f;
-            y=(float)Math.sin(x)*20;
+            y=(float)Math.tan(x);
         }
         return entries;
     }
