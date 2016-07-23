@@ -2,6 +2,7 @@ package com.example.noxid.androidgraphingui;
 
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -42,6 +43,8 @@ public class TwoChannels extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+        //this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         lineChart=(LineChart) findViewById(R.id.chart);
         lineChart2=(LineChart)findViewById(R.id.chart2);
         pause1=(Button)findViewById(R.id.button_pause);
@@ -106,6 +109,23 @@ public class TwoChannels extends AppCompatActivity {
         yAxis.setAxisMinValue(MinYValue);
 
 
+        Legend legend2=lineChart2.getLegend();
+        legend2.setTextColor(Color.WHITE);
+        legend2.setForm(Legend.LegendForm.CIRCLE);
+
+        XAxis xAxis2=lineChart2.getXAxis();
+        xAxis2.setTextColor(Color.WHITE);
+        xAxis2.setAvoidFirstLastClipping(true);
+
+
+        YAxis yAxis2=lineChart2.getAxisLeft();
+        yAxis2.setTextColor(Color.WHITE);
+        yAxis2.setAxisMaxValue(MaxYValue);//max voltage
+        yAxis2.setAxisMinValue(MinYValue);
+
+        dataSet.setDrawCircles(false);
+
+
         lineChart.setData(data);
         lineChart2.setData(data);
 
@@ -125,13 +145,18 @@ public class TwoChannels extends AppCompatActivity {
         switch(menuItem.getItemId())
         {
             case R.id.double_channel:
-                Toast.makeText(TwoChannels.this, "DOUBLE CHANNEL", Toast.LENGTH_LONG).show();
+                Toast.makeText(TwoChannels.this, "DOUBLE CHANNEL", Toast.LENGTH_SHORT).show();
 
                 return true;
             case R.id.single_channel:
-                Toast.makeText(TwoChannels.this, "SINGLE", Toast.LENGTH_LONG).show();
-                Intent separate_view = new Intent(TwoChannels.this,MainActivity.class);
-                startActivity(separate_view);
+                Toast.makeText(TwoChannels.this, "SINGLE", Toast.LENGTH_SHORT).show();
+                Intent single_view = new Intent(TwoChannels.this,MainActivity.class);
+                startActivity(single_view);
+                return true;
+            case R.id.splash:
+                Toast.makeText(TwoChannels.this, "SPLASH", Toast.LENGTH_SHORT).show();
+                Intent Splash_view = new Intent(TwoChannels.this,Splash.class);
+                startActivity(Splash_view);
                 return true;
             default:
 
