@@ -132,6 +132,11 @@ public class MainActivity extends AppCompatActivity {
                 Intent separate_view = new Intent(MainActivity.this,TwoChannels.class);
                 startActivity(separate_view);
                 return true;
+            case R.id.splash:
+                Toast.makeText(MainActivity.this, "SPLASH", Toast.LENGTH_SHORT).show();
+                Intent Splash_view = new Intent(MainActivity.this,Splash.class);
+                startActivity(Splash_view);
+                return true;    
              default:
                  return super.onOptionsItemSelected(menuItem);
         }
