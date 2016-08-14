@@ -9,4 +9,4 @@ and double channel views of the data stream
 
 Can now read from usbserial port
 
-PLots data using arduino from analog pin 3
+PLots data using arduino from analog pin , go into src folder of this commit
